@@ -1,0 +1,62 @@
+Geometry_Texture_PIPA
+
+***************************************************************
+* author: Marie-Caroline Corbineau    		              *
+* institution: CVN, CentraleSupélec, Université Paris-Saclay  *
+* date: Tuesday, July 3rd 2018   	                      *
+* License: GNU General Public License v3.0                    *
+***************************************************************
+
+*****************************************************
+* RECOMMENDATIONS:                                  *
+* This code is designed to work with                *
+* Matlab R2016b (or earlier versions)               *
+*****************************************************
+
+------------------------------------------------------------------------------------
+DESCRIPTION:
+
+This code allows to do a joint decomposition and reconstruction of tomographic data.
+The decomposition is done by identifying a geometry component (piecewise constant) and
+a texture (locally fast-varying elements).
+The problem is formulated as follows:        
+                        minimize          0.5*||F*x^t||_2^2 + alpha*TV(x^g)
+                 for x^t and x^g in R^N
+                       subject to          -chi<= H*(x^t+x^g)-y <= chi
+                                                0 <= x^t+x^g <= 1
+Where: F=I_N-Delta and Delta is the Laplacian edge detection operator
+       TV is the total variation seminorm
+       alpha is a regularization parameter
+       x^t and x^g are the texture and the geometry, respectively
+       H is the observation operator (radon transform)
+       y is the tomographic data
+       chi is th measurement uncertainty
+The minimization process is based on a Proximal Interior Point Algorithm (PIPA).
+
+This toolbox consists of 2 subfolders:
+1) data: contains data for three real images of materials (glass, AlCu, basalt), and the operator H
+2) functions: contains the decomposition/reconstruction programs
+
+Information about the data:
+glass: Phase-separated barium borosilicate glass, imaged at the ESRF synchrotron (courtesy of David Bouttes) 
+AlCu: AlCu sample, imaged at the ESRF synchrotron (courtesy of David Bouttes)
+basalt: Colorado Plateau basalt with bubbles (courtesy of Alexander Proussevitch)
+
+------------------------------------------------------------------------------------
+SPECIFICATIONS for using Geometry_Texture_PIPA:
+
+A demo file is provided :
+* demo.m runs the joint decomposition and reconstruction for the data chosen by the user. 
+
+------------------------------------------------------------------------------------
+RELATED PUBLICATIONS:
+
+# M.-C. Corbineau, E. Chouzenoux, and J.-C. Pesquet. Geometry-texture decomposition/reconstruction 
+  using a proximal interior point algorithm. In Proceedings of the 10th IEEE Sensor Array and 
+  Multichannel Signal Processing Workshop (SAM 2018), Sheffield, UK, 8-11 July 2018.
+
+# M.-C. Corbineau, E. Chouzenoux, and J.-C. Pesquet. PIPA: a new proximal interior point algorithm 
+  for large-scale convex optimization. In Proceedings of the 43rd IEEE International Conference on 
+  Acoustics, Speech and Signal processing (ICASSP 2018), Calgary, Canada, 15-20 April 2018.
+
+------------------------------------------------------------------------------------
